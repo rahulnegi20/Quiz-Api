@@ -59,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Quiz(models.Model):
     """Quiz Model"""
     title = models.CharField(max_length=255)
-    question_count = models.IntegerField(default=1)
+   # question_count = models.IntegerField(default=1)
     is_published = models.BooleanField(default=False)
     start_at = models.DateTimeField(auto_now_add=False, auto_now=False, unique=True)
     end_at = models.DateTimeField(auto_now_add=False, auto_now=False, unique=True)
@@ -72,12 +72,6 @@ class Quiz(models.Model):
     
     def __str__(self):
         return '{}'.format(str(self.title))
-
-
-    def quiz_state(self):
-        """Defining the Quiz state"""
-        if self.is_published == False:
-            pass
 
 
 class Question(models.Model):

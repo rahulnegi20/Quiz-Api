@@ -5,9 +5,6 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-#router.register(r'quiz', views.LiveQuizViewSet, basename='quiz')
-#router.register(r'quiz/<int:pk>', views.AttemptLiveQuiz, basename='live')
-
 app_name = 'user'
 
 urlpatterns = [
@@ -24,4 +21,4 @@ urlpatterns = [
     path('upcoming/<int:pk>/', views.LiveQuizQuestion.as_view(), name='future-question'),
   
   
-] #+ router.urls
+]

@@ -43,7 +43,13 @@ class AnswerAdmin(admin.ModelAdmin):
     list_display = ['answer', 'is_correct', 'question',]
 
 
+class QuizTakerAdmin(admin.ModelAdmin):
+    fields = ['user', 'quiz']
+    list_display = ['user', 'quiz']
+
+
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.QuizTakers, QuizTakerAdmin)
 # admin.site.register(models.Quiz, QuizAdmin)
 # admin.site.register(models.Question, QuestionAdmin)
 # #admin.site.register(models.Answer, AnswerInlineModel)

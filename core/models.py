@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 def question_image_file_path(instance, filename):
-    """Generate file path for new recipe image"""
+    """Generate file path for new quetions image"""
     ext = filename.split('.')[-1]
     filename = f'{uuid.uuid4()}.{ext}'
 
@@ -57,6 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Quiz(models.Model):
+    """Quiz Model"""
     title = models.CharField(max_length=255)
     question_count = models.IntegerField(default=1)
     is_published = models.BooleanField(default=False)
@@ -109,5 +110,16 @@ class Answer(models.Model):
     
     def __str__(self):
         return '{}'.format(str(self.answer))
-        
+    
+    
+class QuizTakers(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    correct_answers = models.IntegerField(default=0)
+    completed = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Quiz Taker')
+        verbose_name_plural = _('Quiz Takers')
     

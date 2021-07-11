@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _ 
 from rest_framework import serializers
-from core.models import Quiz 
+from core.models import Quiz, Question, Answer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -56,9 +56,26 @@ class AuthTokenSerializer(serializers.Serializer):
 
 class QuizSerializer(serializers.ModelSerializer):
     """Serializing the Quiz Model"""
+    question = serializers.StringRelatedField(many=True) 
     class Meta:
         model = Quiz
-        fields = ('question', 'start_at', 'end_at', 'is_published', )
+        fields = ('id', 'title','question', )
         read_only_fields = ('id',)
         depth = 1
         
+
+class AnswerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Answer
+        fields = ('id', 'answer', 'is_correct',)
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    answer = AnswerSerializer(many=True, read_only=True)
+    quiz = serializers.StringRelatedField() 
+    class Meta:
+        model = Question
+        fields = ('quiz','id', 'question', 'answer',)
+        depth =1
+
